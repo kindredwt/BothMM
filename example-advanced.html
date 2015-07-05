@@ -8,33 +8,34 @@
 </head>
 <body>
 
+<div id="diagnostics" class="box">
+    <b>Diagnostics</b>
+
+    <div>
+        <span class="key">BothMM.js version:</span>
+        <span class="val" id="both-mm-version">unknown</span>
+    </div>
+    <!--div>
+        <span class="key">Zawgy font installed:</span>
+        <span class="val" id="has-zawgy-font">unknown</span>
+    </div-->
+    <div>
+        <span class="key">Initial Encoding:</span>
+        <span class="val" id="initial-encoding">unknown</span>
+    </div>
+    <div>
+        <span class="key">Current Encoding:</span>
+        <span class="val" id="current-encoding">unknown</span>
+    </div>
+</div>
+
+<div class="box controls">
+    <button both-mm-select="zawgyi">Zawgyi</button>
+    <button both-mm-select="unicode">Unicode</button>
+    <button both-mm-select="off">Off</button>
+</div>
+
 <div class="event_desc">
-    <div id="diagnostics" class="box">
-        <b>Diagnostics</b>
-
-        <div>
-            <span class="key">BothMM.js version:</span>
-            <span class="val" id="both-mm-version">unknown</span>
-        </div>
-        <!--div>
-            <span class="key">Zawgy font installed:</span>
-            <span class="val" id="has-zawgy-font">unknown</span>
-        </div-->
-        <div>
-            <span class="key">Initial Encoding:</span>
-            <span class="val" id="initial-encoding">unknown</span>
-        </div>
-        <div>
-            <span class="key">Current Encoding:</span>
-            <span class="val" id="current-encoding">unknown</span>
-        </div>
-    </div>
-
-    <div class="box controls">
-        <button both-mm-select="zawgyi">Zawgyi</button>
-        <button both-mm-select="unicode">Unicode</button>
-        <button both-mm-select="off">Off</button>
-    </div>
 
     <div both-mm="off">
         <h3>English</h3>
@@ -48,8 +49,8 @@
         <span both-mm="off">Voter Management system</span>
         ကို တည္ေဆာက္ခဲ့သူကေတာ့
         <span both-mm="off">Wirecraft</span>
-        ကုမၺဏီ ျဖစ္ပါတယ္။ ယင္း ကုမၺဏီရဲ႕ CEO ျဖစ္တဲ့ Quentin Berder ဟာ ဖန္တီးရာကို လာေရာက္လုိ႔ သူ႔ရဲ႕ အေတြ႔အၾကံဳနဲ႔ data
-        <span both-mm="off">science, data visualization</span>
+        ကုမၺဏီ ျဖစ္ပါတယ္။ ယင္း ကုမၺဏီရဲ႕ CEO ျဖစ္တဲ့ Quentin Berder ဟာ ဖန္တီးရာကို လာေရာက္လုိ႔ သူ႔ရဲ႕ အေတြ႔အၾကံဳနဲ႔
+        <span both-mm="off">data science, data visualization</span>
         အေၾကာင္းကို လာေရာက္ ေဟာေျပာမွာ ျဖစ္ပါတယ္။ အခမဲ့ ပြဲျဖစ္ျပီး တက္ေရာက္လုိပါက
         <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
         တြင္ စာရင္းသြင္းပါ။ လာမယ့္ ဗုဒၶဟူးေန႔ ညေန ၆နာရီမွာ ျဖစ္ပါတယ္။
@@ -67,6 +68,10 @@
         <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
         တွင် စာရင်းသွင်းပါ။ လာမယ့် ဗုဒ္ဓဟူးနေ့ ညနေ ၆နာရီမှာ ဖြစ်ပါတယ်။
     </div>
+</div>
+
+<div class="box linkback">
+    Test&nbsp;page&nbsp;for&nbsp;<a href="https://github.com/logi/BothMM">BothMM</a>&nbsp;library
 </div>
 
 <script>
