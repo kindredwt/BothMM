@@ -1,0 +1,87 @@
+<html>
+<head>
+
+    <link href="example.css" rel="stylesheet">
+    <link href="example-advanced.css" rel="stylesheet">
+    <script src="both-mm.js"></script>
+
+</head>
+<body>
+
+<div class="event_desc">
+    <div id="diagnostics" class="box">
+        <b>Diagnostics</b>
+
+        <div>
+            <span class="key">BothMM.js version:</span>
+            <span class="val" id="both-mm-version">unknown</span>
+        </div>
+        <!--div>
+            <span class="key">Zawgy font installed:</span>
+            <span class="val" id="has-zawgy-font">unknown</span>
+        </div-->
+        <div>
+            <span class="key">Initial Encoding:</span>
+            <span class="val" id="initial-encoding">unknown</span>
+        </div>
+        <div>
+            <span class="key">Current Encoding:</span>
+            <span class="val" id="current-encoding">unknown</span>
+        </div>
+    </div>
+
+    <div class="box controls">
+        <button both-mm-select="zawgyi">Zawgyi</button>
+        <button both-mm-select="unicode">Unicode</button>
+        <button both-mm-select="off">Off</button>
+    </div>
+
+    <div both-mm="off">
+        <h3>English</h3>
+        <span class="date">Wednesday at 6pm</span> Meet the CEO of the company that built Myanmar's voter management
+        list system. Free but <a href="http://goo.gl/RfBpsU">register here</a>
+    </div>
+
+    <div both-mm="zawgyi">
+        <h3>Zawgyi</h3>
+        ျမန္မာျပည္အတြက္
+        <span both-mm="off">Voter Management system</span>
+        ကို တည္ေဆာက္ခဲ့သူကေတာ့
+        <span both-mm="off">Wirecraft</span>
+        ကုမၺဏီ ျဖစ္ပါတယ္။ ယင္း ကုမၺဏီရဲ႕ CEO ျဖစ္တဲ့ Quentin Berder ဟာ ဖန္တီးရာကို လာေရာက္လုိ႔ သူ႔ရဲ႕ အေတြ႔အၾကံဳနဲ႔ data
+        <span both-mm="off">science, data visualization</span>
+        အေၾကာင္းကို လာေရာက္ ေဟာေျပာမွာ ျဖစ္ပါတယ္။ အခမဲ့ ပြဲျဖစ္ျပီး တက္ေရာက္လုိပါက
+        <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
+        တြင္ စာရင္းသြင္းပါ။ လာမယ့္ ဗုဒၶဟူးေန႔ ညေန ၆နာရီမွာ ျဖစ္ပါတယ္။
+    </div>
+
+    <div both-mm="unicode">
+        <h3>Unicode</h3>
+        မြန်မာပြည်အတွက်
+        <span both-mm="off">Voter Management system</span>
+        ကို တည်ဆောက်ခဲ့သူကတော့
+        <span both-mm="off">Wirecraft</span>
+        ကုမ္ဗဏီ ဖြစ်ပါတယ်။ ယင်း ကုမ္ဗဏီရဲ့ CEO ဖြစ်တဲ့ Quentin Berder ဟာ ဖန်တီးရာကို လာရောက်လို့ သူ့ရဲ့ အတွေ့အကြုံနဲ့
+        <span both-mm="off">data science, data visualization</span>
+        အကြောင်းကို လာရောက် ဟောပြောမှာ ဖြစ်ပါတယ်။ အခမဲ့ ပွဲဖြစ်ပြီး တက်ရောက်လိုပါက
+        <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
+        တွင် စာရင်းသွင်းပါ။ လာမယ့် ဗုဒ္ဓဟူးနေ့ ညနေ ၆နာရီမှာ ဖြစ်ပါတယ်။
+    </div>
+</div>
+
+<script>
+    BothMM.ready(function () {
+        document.getElementById("both-mm-version").textContent = BothMM.VERSION;
+        document.getElementById("initial-encoding").textContent = BothMM.encoding;
+        document.getElementById("current-encoding").textContent = BothMM.encoding;
+        BothMM.afterEncodingChange(function (before, after) {
+            if (console && console.log) {
+                console.log("Encoding changed: " + before + " -> " + after);
+            }
+            document.getElementById("current-encoding").textContent = BothMM.encoding;
+        })
+    });
+</script>
+
+</body>
+</html>
