@@ -1,3 +1,5 @@
+// Copyright: Logi Ragnarsson 2015 logi@logi.org
+
 /**
  * Global object for scripting the BothMM library.
  *
@@ -18,6 +20,34 @@ BothMM = {
         } else {
             setTimeout(f, 0);
         }
+    },
+
+    /**
+     * Tests whether a given font is installed in the user's browser.
+     *
+     * It works by constructing a <div/> with some text in the requested font,
+     * but either "sans-serif" or "monospace" as the backup font. If the font
+     * exists, the browser will use that font and both elements have the same
+     * width. If the font does not exist, the fallback fonts have very
+     * different widths.
+     *
+     * @param {string} font The name of the font to test for
+     * @returns {boolean} Whether the font is available
+     */
+    hasFont: function (font) {
+        var node = document.createElement('div');
+        node.innerHTML = '<span style="position:absolute!important;width:auto!important;font-size:100px!important;left:-999px">. . .</span>';
+        node = node.firstChild;
+
+        node.style.fontFamily = font + ', sans-serif';
+        document.body.appendChild(node);
+        var widthOrSans = node.clientWidth;
+        node.style.fontFamily = font + ', monospace';
+        var widthOrMono = node.clientWidth;
+        document.body.removeChild(node);
+
+        console.log(font, widthOrSans == widthOrMono ? 'exists' : 'is bogus', widthOrSans, widthOrMono);
+        return widthOrSans == widthOrMono;
     },
 
     VERSION: "0.0.1"
@@ -188,13 +218,17 @@ BothMM = {
         // Discovery
 
         // TODO: Load encoding from cookie
-        // TODO: Detect Zawgyi font and set encoding accordingly
+
+        /**
+         * One of 'missing', 'installed', 'dominant'
+         */
+        BothMM.zawgyiFontState = BothMM.hasFont('Zawgyi-One') ? 'installed' : 'missing';
 
         /**
          * Translate elements to use this presentation.
          * @type {string} (zawgyi|unicode|off)
          */
-        BothMM.encoding = "off";
+        BothMM.encoding = BothMM.zawgyiFontState == 'installed' ? 'zawgyi' : 'unicode';
 
         /**
          * The DOM elements to translate. Defaults to anything with a [both-mm] attribute,

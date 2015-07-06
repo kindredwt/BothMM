@@ -13,19 +13,19 @@
 
     <div>
         <span class="key">BothMM.js version:</span>
-        <span class="val" id="both-mm-version">unknown</span>
+        <span class="val" id="both-mm-version"></span>
     </div>
-    <!--div>
-        <span class="key">Zawgy font installed:</span>
-        <span class="val" id="has-zawgy-font">unknown</span>
-    </div-->
+    <div>
+        <span class="key">Zawgyi font installed:</span>
+        <span class="val" id="has-zawgyi-font"></span>
+    </div>
     <div>
         <span class="key">Initial Encoding:</span>
-        <span class="val" id="initial-encoding">unknown</span>
+        <span class="val" id="initial-encoding"></span>
     </div>
     <div>
         <span class="key">Current Encoding:</span>
-        <span class="val" id="current-encoding">unknown</span>
+        <span class="val" id="current-encoding"></span>
     </div>
 </div>
 
@@ -77,8 +77,10 @@
 <script>
     BothMM.ready(function () {
         document.getElementById("both-mm-version").textContent = BothMM.VERSION;
+        document.getElementById("has-zawgyi-font").textContent = BothMM.zawgyiFontState;
         document.getElementById("initial-encoding").textContent = BothMM.encoding;
         document.getElementById("current-encoding").textContent = BothMM.encoding;
+
         BothMM.afterEncodingChange(function (before, after) {
             if (console && console.log) {
                 console.log("Encoding changed: " + before + " -> " + after);
