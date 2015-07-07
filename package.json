@@ -1,0 +1,21 @@
+{
+  "name": "BothMM",
+  "description": "Library to allow Burmese-language web content to be authored in both Zawgyi and Unicode and to be viewed by users whichever font/encoding they have configured in their browsers.",
+  "version": "0.0.1",
+  "license": "LGPL-2.1+",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:logi/BothMM.git"
+  },
+  "author": {
+    "name": "Logi Ragnarsson",
+    "email": "logi@logi.org"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^5.6.15",
+    "babel-loader": "^5.3.1",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.1"
+  }
+}
