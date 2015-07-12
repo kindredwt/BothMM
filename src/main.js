@@ -90,7 +90,8 @@ class BothMM {
         }
         BothMM.encoding = encoding;
         translateSub("off", BothMM.roots);
-        // TODO: Store new encoding in cookie
+
+        setCookie('BothMM.encoding', encoding, '/');
         for (i = 0; i < aecListeners.length; i++) {
             try {
                 aecListeners[i](before, encoding)
@@ -207,22 +208,30 @@ function translateSub(encSrcParent, elms) {
     }
 }
 
+function getCookie(key) {
+    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+}
+
+function setCookie(key, value, path) {
+    document.cookie = encodeURIComponent(key) + "=" + encodeURIComponent(value) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT" + (path ? "; path=" + path : "");
+}
+
+// INITIALISE WHEN DOM IS READY
+
 /** Initialise BothMM state when DOM is whenReady. */
 function onDomReady() {
 
     /**
-     * One of 'missing', 'installed', 'dominant'
+     * Whether the Zawgyi-One font is available in the user's browser.
+     * @type {bool}
      */
-    BothMM.zawgyiFontState = BothMM.hasFont('Zawgyi-One') ? 'installed' : 'missing';
-
-    // TODO: Don't override if encoding has been set
-    // TODO: Load encoding from cookie
+    BothMM.zawgyiFont = BothMM.hasFont('Zawgyi-One');
 
     /**
      * Translate elements to use this presentation.
      * @type {string} (zawgyi|unicode|off)
      */
-    BothMM.encoding = BothMM.zawgyiFontState == 'installed' ? 'zawgyi' : 'unicode';
+    BothMM.encoding = getCookie('BothMM.encoding') || (BothMM.zawgyiFont ? 'zawgyi' : 'unicode');
 
     BothMM.roots = discardIfAncestorAttr("both-mm", findWithAttr("both-mm"));
     console.log('BothMM.roots discovered:', BothMM.roots.length);
