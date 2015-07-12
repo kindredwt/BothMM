@@ -1,10 +1,9 @@
 // Copyright (C) 2015 Logi Ragnarsson <logi@logi.org>
+// License: GNU Lesser General Public License, version 2.1 or later.
+// http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
 
-// Ensure that console.log and console.error don't cause errors
-var console = window.console || {};
-console.log = console.log || (() => {
-    });
-console.error = console.error || console.log;
+import {convert} from './tls/converter';
+import {console} from './utils';
 
 // Private state
 
@@ -14,13 +13,13 @@ var aecListeners = [];
 
 
 /**
- * Library to allow Burmese-language web content to be authored in both Zawgyi and Unicode and to be viewed by users
+ * Library to allow Burmese-language web content to be authored in both Zawgyi-One and Unicode and to be viewed by users
  * whichever font/encoding they have configured in their browsers.
  *
  * It initially has a very limited set of members, until the library has properly initialised. Those members are
  * documented as such.
  */
-class BothMM {
+export default class BothMM {
 
     /**
      * Call the passed-in function when the BothMM library is whenReady. This is guaranteed to also be after the DOM is
@@ -58,7 +57,6 @@ class BothMM {
         var widthOrMono = node.clientWidth;
         document.body.removeChild(node);
 
-        console.log(font, widthOrSans == widthOrMono ? 'exists' : 'is bogus', widthOrSans, widthOrMono);
         return widthOrSans == widthOrMono;
     }
 
@@ -116,23 +114,14 @@ BothMM.VERSION = "0.0.1";
 BothMM.roots = [];
 
 
+/**
+ * Re-export the convert function
+ * @type {convert}
+ */
+BothMM.convert = convert;
+
 ///////////////////////////////////////////////////////////////////
 // Utility functions
-
-var stringConverterMap = {  // TODO: Implement actual text translation
-    zawgyi_unicode: function (s) {
-        // Silly translator that puts _underline_ on each word.
-        return s.replace(/((\s|^)+)([^\s$]+)/g, "$1[$3]");
-    },
-    unicode_zawgyi: function (s) {
-        // Silly translator that puts _underline_ on each word.
-        return s.replace(/((\s|^)+)([^\s$]+)/g, "$1[$3]");
-    },
-    no_op: function (s) {
-        return s;
-    }
-};
-
 
 /**
  * Find all nodes on page with a given attribute
@@ -181,27 +170,26 @@ function discardIfAncestorAttr(an, elms) {
 /**
  * Recursively translate a list of elements.
  *
- * @param encSrcParent Encoding source inherited from parents. This may be overridden in children.
+ * @param encSrc Encoding source inherited from parents. This may be overridden in children.
  * @param elms List of elements to translate.
  */
-function translateSub(encSrcParent, elms) {
+function translateSub(encSrc, elms) {
     var encTgt = BothMM.encoding;
     for (var i = 0; i < elms.length; i++) {
         var elm = elms[i];
 
         if (elm.nodeType == 3) {
             // It's a text node, so let's do some actual text conversion
-            if (!elm.__raw) elm.__raw = elm.nodeValue;
-            var cvtKey = encSrcParent + "_" + encTgt;
-            //console.log(cvtKey, elm);
-            var cvt = stringConverterMap[cvtKey] || stringConverterMap.no_op;
-            elm.nodeValue = cvt(elm.__raw);
-            // TODO: Update on DOMCharacterDataModified  -- fallback to setInterval?
+            if (!elm.__raw) {
+                // TODO: Brittle
+                elm.__raw = elm.nodeValue;
+            }
+            elm.nodeValue = convert(encSrc, encTgt, elm.__raw);
         } else {
             // No text here. Update settings and recurse
-            var encSrcSel = elm.getAttribute("both-mm") || encSrcParent;
+            var encSrcSel = elm.getAttribute("both-mm") || encSrc;
             var encTgtEff = (encSrcSel == "off") ? "off" : (encTgt != encSrcSel) ? encTgt : "off";
-            //console.log(encSrcParent, encSrcSel, "->", encTgt, encTgtEff, elm);
+            //console.log(encSrc, encSrcSel, "->", encTgt, encTgtEff, elm);
             elm.setAttribute("both-mm-now", encTgtEff);
             translateSub(encSrcSel, elm.childNodes);
         }
@@ -225,13 +213,13 @@ function onDomReady() {
      * Whether the Zawgyi-One font is available in the user's browser.
      * @type {bool}
      */
-    BothMM.zawgyiFont = BothMM.hasFont('Zawgyi-One');
+    BothMM.zawgyiOneFont = BothMM.hasFont('Zawgyi-One');
 
     /**
      * Translate elements to use this presentation.
-     * @type {string} (zawgyi|unicode|off)
+     * @type {string} (zawgyi-one|unicode|off)
      */
-    BothMM.encoding = getCookie('BothMM.encoding') || (BothMM.zawgyiFont ? 'zawgyi' : 'unicode');
+    BothMM.encoding = getCookie('BothMM.encoding') || 'unicode';
 
     BothMM.roots = discardIfAncestorAttr("both-mm", findWithAttr("both-mm"));
     console.log('BothMM.roots discovered:', BothMM.roots.length);
@@ -271,5 +259,3 @@ function onDomReady() {
         setTimeout(ready, 20);
     }
 })();
-
-export default BothMM;

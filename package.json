@@ -7,10 +7,16 @@
     "type": "git",
     "url": "git@github.com:logi/BothMM.git"
   },
-  "author": {
-    "name": "Logi Ragnarsson",
-    "email": "logi@logi.org"
-  },
+  "contributors": [
+    {
+      "name": "Logi Ragnarsson",
+      "email": "logi@logi.org"
+    },
+    {
+      "name": "Keith Stribley",
+      "url": "http://www.ThanLwinSoft.org/"
+    }
+  ],
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^5.6.15",
