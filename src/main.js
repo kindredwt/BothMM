@@ -105,7 +105,7 @@ export default class BothMM {
  *
  * This member is available during initialisation.
  */
-BothMM.VERSION = "0.0.1";
+BothMM.VERSION = "0.1.0";
 
 
 /**

@@ -7,20 +7,24 @@ body {
 .box {
     border: thin solid black;
     margin: 5px 0;
-    padding: 5px;
+    padding: 5px 10px;
     background: #eeeeee;
+}
+
+p {
+    margin: 10px 0 0 0;
 }
 
 .main {
     min-width: 100px;
+    max-width: 1000px;
 }
 
 .main .text-block {
     background: #ffffff;
-    /*display: inline-block;*/
-    padding: 3px 10px;
-    margin: 5px;
-    max-width: 400px;
+    border: thin solid black;
+    margin: 5px 0;
+    padding: 5px 10px;
     vertical-align: top;
 }
 

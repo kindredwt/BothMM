@@ -1,52 +1,62 @@
 <html>
-
 <head>
     <meta charset="UTF-8">
     <link href="example.css" rel="stylesheet">
-
     <script src="../build/BothMM.js"></script>
 </head>
-
 <body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="box controls">
-    <button both-mm-select="zawgyi-one">Zawgyi-One</button>
-    <button both-mm-select="unicode">Unicode</button>
-    <button both-mm-select="off">Off</button>
-</div>
 
 <div class="main">
 
-    <div class="text-block" both-mm="off">
-        <h3>English</h3>
-        <span class="date">Wednesday at 6pm</span> Meet the CEO of the company that built Myanmar's voter management
-        list system. Free but <a href="http://goo.gl/RfBpsU">register here</a>
+    <h1>BothMM.js</h1>
+
+    <div class="box about">
+        <h3>What's all this then?</h3>
+
+        <p>
+            This is an example/demo page for the <a href="https://github.com/logi/BothMM"><code>BothMM.js</code></a>
+            library which allows using both unicode and Zawgyi-One (and a couple of other) encodings on the same page
+            and
+            recode it for the particular font installed in the user's browser.
+        </p>
+
+        <p>
+            This page has Burmese text written in different encodings and each block is marked up with a
+            <code>both-mm="..."</code> attribute to indicate which encoding is used. Supported encodings are:
+        </p>
+        <ul>
+            <li><b>unicode</b> for the international standard and universal encoding.</li>
+            <li><b>zawgyi-one</b> for the most common legacy encoding.</li>
+            <li><b>wininnwa</b> (Win Researcher, Win Innwa, Win Innwa, Win---Innwa, Win---Researcher)</li>
+            <li><b>wwin_burmese1</b> (Wwin_Burmese)</li>
+            <li><b>off</b> to disable transcoding for a sub-block</li>
+        </ul>
+
+        <p>
+            Right below here are buttons to select the encoding to use to display the text.
+        </p>
+
+        <p>
+            Finally, the reason for all of this, there are boxes with the same text written in different source
+            encodings. Selecting an encoding causes the text in all the boxes to be transcribed to the selected
+            encoding. Selecting <code>[off]</code> will show all the texts in their original form.
+        </p>
+
+        <p>
+            There is also <a href="example-advanced.html">a more advanced version of this page</a> which works shows off
+            some of the scripting functions of the library.
+        </p>
     </div>
 
+    <div class="box controls">
+        <button both-mm-select="zawgyi-one">Zawgyi-One</button>
+        <button both-mm-select="unicode">Unicode</button>
+        <button both-mm-select="off">Off</button>
+    </div>
+
+
     <div class="text-block" both-mm="zawgyi-one">
-        <h3>Zawgyi-One Source</h3>
+        <h3 both-mm="off">Zawgyi-One Source</h3>
         ျမန္မာျပည္အတြက္
         <span both-mm="off">Voter Management system</span>
         ကို တည္ေဆာက္ခဲ့သူကေတာ့
@@ -54,12 +64,12 @@
         ကုမၺဏီ ျဖစ္ပါတယ္။ ယင္း ကုမၺဏီရဲ႕ CEO ျဖစ္တဲ့ Quentin Berder ဟာ ဖန္တီးရာကို လာေရာက္လုိ႔ သူ႔ရဲ႕ အေတြ႔အၾကံဳနဲ႔
         <span both-mm="off">data science, data visualization</span>
         အေၾကာင္းကို လာေရာက္ ေဟာေျပာမွာ ျဖစ္ပါတယ္။ အခမဲ့ ပြဲျဖစ္ျပီး တက္ေရာက္လုိပါက
-        <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
+        <a both-mm="off" href="http://goo.gl/RfBpsU">http://goo.gl/RfBpsU</a>
         တြင္ စာရင္းသြင္းပါ။ လာမယ့္ ဗုဒၶဟူးေန႔ ညေန ၆နာရီမွာ ျဖစ္ပါတယ္။
     </div>
 
     <div class="text-block" both-mm="unicode">
-        <h3>Unicode Source</h3>
+        <h3 both-mm="off">Unicode Source</h3>
         မြန်မာပြည်အတွက်
         <span both-mm="off">Voter Management system</span>
         ကို တည်ဆောက်ခဲ့သူကတော့
@@ -67,13 +77,9 @@
         ကုမ္ဗဏီ ဖြစ်ပါတယ်။ ယင်း ကုမ္ဗဏီရဲ့ CEO ဖြစ်တဲ့ Quentin Berder ဟာ ဖန်တီးရာကို လာရောက်လို့ သူ့ရဲ့ အတွေ့အကြုံနဲ့
         <span both-mm="off">data science, data visualization</span>
         အကြောင်းကို လာရောက် ဟောပြောမှာ ဖြစ်ပါတယ်။ အခမဲ့ ပွဲဖြစ်ပြီး တက်ရောက်လိုပါက
-        <a href="http://goo.gl/RfBpsU" both-mm="off">http://goo.gl/RfBpsU</a>
+        <a both-mm="off" href="http://goo.gl/RfBpsU">http://goo.gl/RfBpsU</a>
         တွင် စာရင်းသွင်းပါ။ လာမယ့် ဗုဒ္ဓဟူးနေ့ ညနေ ၆နာရီမှာ ဖြစ်ပါတယ်။
     </div>
-</div>
-
-<div class="box linkback">
-    Test&nbsp;page&nbsp;for&nbsp;<a href="https://github.com/logi/BothMM">BothMM</a>&nbsp;library
 </div>
 
 </body>
