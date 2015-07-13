@@ -132,10 +132,10 @@ class Converter {
             }
         }
         /*if (isUnicode) {
-            console.log("unicode pattern: " + pattern);
-        } else {   //^ $ \ . * + ? ( ) [ ] { } |
-            console.log("legacy pattern: " + pattern);
-        }*/
+         console.log("unicode pattern: " + pattern);
+         } else {   //^ $ \ . * + ? ( ) [ ] { } |
+         console.log("legacy pattern: " + pattern);
+         }*/
         return new RegExp(pattern, "g");
     }
 
@@ -835,25 +835,20 @@ for (let enc in specs) {
 }
 
 export function convert(encSrc, encTgt, txtSrc) {
-    if (encSrc == encTgt || !txtSrc) {
+    if (encSrc == encTgt || encSrc=='off' || encTgt=='off' || !txtSrc) {
         // If encoding is identical or text is trivial, just pass it through
         return txtSrc;
     }
     //console.log('src', encSrc, txtSrc);
-    if (encSrc == 'unicode') {
-        var txtUni = txtSrc;
-    } else {
-        var convSrc = converters[encSrc];
-        //console.log('convSrc:', convSrc);
-        txtUni = convSrc.convertToUnicode(txtSrc);
+    var convSrc = converters[encSrc];
+    var txtUni = convSrc ? convSrc.convertToUnicode(txtSrc) : txtSrc;
+    if (!convSrc && encSrc != 'unicode') {
+        console.error('No decoder found for', encSrc);
     }
-    if (encTgt == 'unicode') {
-        var txtTgt = txtUni;
-    } else {
-        var convTgt = converters[encTgt];
-        //console.log('convTgt:', convTgt);
-        txtTgt = convTgt.convertFromUnicode(txtTgt);
+    var convTgt = converters[encTgt];
+    var txtTgt = convTgt ? convTgt.convertFromUnicode(txtUni) : txtUni;
+    if (!convTgt && encTgt != 'unicode') {
+        console.error('No encoder found for', encTgt);
     }
-    //console.log('tgt', encTgt, txtTgt);
     return txtTgt;
 }

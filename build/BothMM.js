@@ -59,9 +59,9 @@ var BothMM =
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _tlsConverter = __webpack_require__(4);
+	var _tlsConverter = __webpack_require__(1);
 	
-	var _utils = __webpack_require__(3);
+	var _utils = __webpack_require__(2);
 	
 	// Private state
 	
@@ -380,24 +380,7 @@ var BothMM =
 	module.exports = exports['default'];
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */
-/***/ function(module, exports) {
-
-	// Ensure that console.log and console.error don't cause errors
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var console = window.console || {};
-	exports.console = console;
-	console.log = console.log || function () {};
-	console.error = console.error || console.log;
-
-/***/ },
-/* 4 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (C) 2010 Keith Stribley http://www.ThanLwinSoft.org/
@@ -419,9 +402,9 @@ var BothMM =
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _utils = __webpack_require__(3);
+	var _utils = __webpack_require__(2);
 	
-	var _specs = __webpack_require__(6);
+	var _specs = __webpack_require__(3);
 	
 	var _specs2 = _interopRequireDefault(_specs);
 	
@@ -540,10 +523,10 @@ var BothMM =
 	                }
 	            }
 	            /*if (isUnicode) {
-	                console.log("unicode pattern: " + pattern);
-	            } else {   //^ $ \ . * + ? ( ) [ ] { } |
-	                console.log("legacy pattern: " + pattern);
-	            }*/
+	             console.log("unicode pattern: " + pattern);
+	             } else {   //^ $ \ . * + ? ( ) [ ] { } |
+	             console.log("legacy pattern: " + pattern);
+	             }*/
 	            return new RegExp(pattern, 'g');
 	        }
 	    }, {
@@ -1158,34 +1141,43 @@ var BothMM =
 	}
 	
 	function convert(encSrc, encTgt, txtSrc) {
-	    if (encSrc == encTgt || !txtSrc) {
+	    if (encSrc == encTgt || encSrc == 'off' || encTgt == 'off' || !txtSrc) {
 	        // If encoding is identical or text is trivial, just pass it through
 	        return txtSrc;
 	    }
 	    //console.log('src', encSrc, txtSrc);
-	    if (encSrc == 'unicode') {
-	        var txtUni = txtSrc;
-	    } else {
-	        var convSrc = converters[encSrc];
-	        //console.log('convSrc:', convSrc);
-	        txtUni = convSrc.convertToUnicode(txtSrc);
+	    var convSrc = converters[encSrc];
+	    var txtUni = convSrc ? convSrc.convertToUnicode(txtSrc) : txtSrc;
+	    if (!convSrc && encSrc != 'unicode') {
+	        _utils.console.error('No decoder found for', encSrc);
 	    }
-	    if (encTgt == 'unicode') {
-	        var txtTgt = txtUni;
-	    } else {
-	        var convTgt = converters[encTgt];
-	        //console.log('convTgt:', convTgt);
-	        txtTgt = convTgt.convertFromUnicode(txtTgt);
+	    var convTgt = converters[encTgt];
+	    var txtTgt = convTgt ? convTgt.convertFromUnicode(txtUni) : txtUni;
+	    if (!convTgt && encTgt != 'unicode') {
+	        _utils.console.error('No encoder found for', encTgt);
 	    }
-	    //console.log('tgt', encTgt, txtTgt);
 	    return txtTgt;
 	}
 	
 	// should be safe to ignore, since the relative order is correct
 
 /***/ },
-/* 5 */,
-/* 6 */
+/* 2 */
+/***/ function(module, exports) {
+
+	// Ensure that console.log and console.error don't cause errors
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var console = window.console || {};
+	exports.console = console;
+	console.log = console.log || function () {};
+	console.error = console.error || console.log;
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 	// Copyright (C) 2010 Keith Stribley http://www.ThanLwinSoft.org/

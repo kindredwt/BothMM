@@ -1,0 +1,30 @@
+body {
+    background: #dddddd;
+    font-family: sans-serif; /* Replace with Zawgyi-One to mimic having that forcefully installed */
+    font-size: 16px;
+}
+
+.box {
+    border: thin solid black;
+    margin: 5px 0;
+    padding: 5px;
+    background: #eeeeee;
+}
+
+.main {
+    min-width: 100px;
+}
+
+.main .text-block {
+    background: #ffffff;
+    /*display: inline-block;*/
+    padding: 3px 10px;
+    margin: 5px;
+    max-width: 400px;
+    vertical-align: top;
+}
+
+h3 {
+    padding: 0;
+    margin: 8px 0 4px 0;
+}
