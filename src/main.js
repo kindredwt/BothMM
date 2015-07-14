@@ -208,6 +208,7 @@ function setCookie(key, value, path) {
 
 /** Initialise BothMM state when DOM is whenReady. */
 function onDomReady() {
+    var i;
 
     /**
      * Whether the Zawgyi-One font is available in the user's browser.
@@ -223,8 +224,8 @@ function onDomReady() {
 
     BothMM.roots = discardIfAncestorAttr("both-mm", findWithAttr("both-mm"));
     console.log('BothMM.roots discovered:', BothMM.roots.length);
-    for (let root of BothMM.roots) {
-        console.log('  ', root);
+    for (i = 0; i < BothMM.roots; i++) {
+        console.log('  ', BothMM.roots[i]);
     }
 
     // Translate all the discovered elements
@@ -232,7 +233,7 @@ function onDomReady() {
 
     // Change the encoding when any element with the "both-mm-select" attribute is clicked
     var selectors = findWithAttr("both-mm-select");
-    for (var i = 0; i < selectors.length; i++) {
+    for (i = 0; i < selectors.length; i++) {
         selectors[i].addEventListener('click', function (evt) {
             var encoding = evt.target.getAttribute("both-mm-select");
             BothMM.setEncoding(encoding);
@@ -240,9 +241,9 @@ function onDomReady() {
     }
 
     // Notify listeners that we are ready
-    for (let listener of readyListeners) {
+    for (i = 0; i < readyListeners.length; i++) {
         try {
-            listener();
+            readyListeners[i]();
         } catch (e) {
             console.error(e);
         }

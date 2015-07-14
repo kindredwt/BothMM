@@ -283,6 +283,7 @@ var BothMM =
 	
 	/** Initialise BothMM state when DOM is whenReady. */
 	function onDomReady() {
+	    var i;
 	
 	    /**
 	     * Whether the Zawgyi-One font is available in the user's browser.
@@ -298,29 +299,8 @@ var BothMM =
 	
 	    BothMM.roots = discardIfAncestorAttr('both-mm', findWithAttr('both-mm'));
 	    _utils.console.log('BothMM.roots discovered:', BothMM.roots.length);
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
-	
-	    try {
-	        for (var _iterator = BothMM.roots[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var root = _step.value;
-	
-	            _utils.console.log('  ', root);
-	        }
-	    } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	    } finally {
-	        try {
-	            if (!_iteratorNormalCompletion && _iterator['return']) {
-	                _iterator['return']();
-	            }
-	        } finally {
-	            if (_didIteratorError) {
-	                throw _iteratorError;
-	            }
-	        }
+	    for (i = 0; i < BothMM.roots; i++) {
+	        _utils.console.log('  ', BothMM.roots[i]);
 	    }
 	
 	    // Translate all the discovered elements
@@ -328,7 +308,7 @@ var BothMM =
 	
 	    // Change the encoding when any element with the "both-mm-select" attribute is clicked
 	    var selectors = findWithAttr('both-mm-select');
-	    for (var i = 0; i < selectors.length; i++) {
+	    for (i = 0; i < selectors.length; i++) {
 	        selectors[i].addEventListener('click', function (evt) {
 	            var encoding = evt.target.getAttribute('both-mm-select');
 	            BothMM.setEncoding(encoding);
@@ -336,35 +316,13 @@ var BothMM =
 	    }
 	
 	    // Notify listeners that we are ready
-	    var _iteratorNormalCompletion2 = true;
-	    var _didIteratorError2 = false;
-	    var _iteratorError2 = undefined;
-	
-	    try {
-	        for (var _iterator2 = readyListeners[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var listener = _step2.value;
-	
-	            try {
-	                listener();
-	            } catch (e) {
-	                _utils.console.error(e);
-	            }
-	        }
-	    } catch (err) {
-	        _didIteratorError2 = true;
-	        _iteratorError2 = err;
-	    } finally {
+	    for (i = 0; i < readyListeners.length; i++) {
 	        try {
-	            if (!_iteratorNormalCompletion2 && _iterator2['return']) {
-	                _iterator2['return']();
-	            }
-	        } finally {
-	            if (_didIteratorError2) {
-	                throw _iteratorError2;
-	            }
+	            readyListeners[i]();
+	        } catch (e) {
+	            _utils.console.error(e);
 	        }
 	    }
-	
 	    readyListeners = undefined;
 	}
 	

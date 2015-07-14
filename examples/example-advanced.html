@@ -108,6 +108,11 @@
 </div>
 
 <script>
+    // Create dummy console for logging if one isn't present.
+    if(!console) console = {};
+    if(!console.log) console.log = function() {};
+    if(!console.error) console.error = console.log;
+
     console.log('BothMM', BothMM.VERSION);
     BothMM.ready(function () {
         document.getElementById("both-mm-version").textContent = BothMM.VERSION;
@@ -116,9 +121,7 @@
         document.getElementById("current-encoding").textContent = BothMM.encoding;
 
         BothMM.afterEncodingChange(function (before, after) {
-            if (console && console.log) {
-                console.log("Encoding changed: " + before + " -> " + after);
-            }
+            console.log("Encoding changed: " + before + " -> " + after);
             document.getElementById("current-encoding").textContent = BothMM.encoding;
         })
     });

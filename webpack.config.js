@@ -15,6 +15,7 @@ var X = module.exports = {
         loaders: [
             {
                 test: path.join(__dirname, "src"),
+                exclude: /(node_modules|bower_components)/,
                 loader: "babel-loader"
             }
         ]
